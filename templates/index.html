@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <title>Current temperatures</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,11 +19,11 @@
         <td><div class="subtitle">Outside</div></td>
       </tr>
       <tr>
-        <td><div class="temp">{{ temp0 }}°C</div></td>
-        <td><div class="temp">{{ temp1 }}°C</div></td>
+        <td><div class="temp"><span id="temp_inside">&nbsp;</span>°C</div></td>
+        <td><div class="temp"><span id="temp_outside">&nbsp;</span>°C</div></td>
       </tr>
       <tr>
-        <td colspan="2"><div class="last">&nbsp;<br />Latest measurement: {{ latest }}</div></td>
+        <td colspan="2"><div class="last">&nbsp;<br />Latest measurement: <span id="latest">{{ latest }}</span></div></td>
       </tr>
     </tbody>
   </table>
@@ -32,11 +33,25 @@
   <img src="{{ url_for('static', filename='latest.png') }}" alt="Temperatures for last 24 hours">
 
   <script language="javascript">
-    setInterval(function () {
-      window.location.reload(1);
-    }, 60000);
+    $(document).ready(function() {
+      
+      loadAndSetData();
+      setInterval(loadAndSetData, 60000);
+
+      function loadAndSetData() {
+        $.getJSON("/api/v1/latest/", function(data){
+          setValues(data["inside"], data["outside"], data["latest_formatted"]);
+        });
+      }
+
+      function setValues(inside, outside, latest) {
+        $("#temp_inside").text(inside.toFixed(1));
+        $("#temp_outside").text(outside.toFixed(1));
+        $("#latest").text(latest);
+      }
+
+    });
   </script>
-  <script src="js/scripts.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template, make_response
+from flask import jsonify
 
 from datetime import datetime
 
@@ -19,8 +20,18 @@ def hello():
         latest=latest[0].strftime('%A, %B %d, %H:%M')
     )
 
-@app.route('/api/v1/csv/last24hours')
+@app.route('/api/v1/last24hours/csv')
 def last24():
     resp = make_response(get_last_24hours_csv())
     resp.headers['Content-Type'] = 'text/csv'
     return resp
+
+@app.route('/api/v1/latest/')
+def latest_json():
+    latest_temp_data = get_latest_temperatures()
+    return jsonify(
+        latest=latest_temp_data[0],
+        latest_formatted=latest_temp_data[0].strftime('%A, %B %d, %H:%M'), 
+        inside=latest_temp_data[1], 
+        outside=latest_temp_data[2],
+    )
