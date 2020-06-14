@@ -6,8 +6,8 @@ import time
 from datetime import datetime
 from db import insert_temperature
 
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
+os.system('/sbin/modprobe w1-gpio')
+os.system('/sbin/modprobe w1-therm')
 
 TIME_BETWEEN_MEASUREMENTS_SECONDS = 60
 DEVICE0_FILE = '/sys/bus/w1/devices/28-01191bb88a82/w1_slave'
