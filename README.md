@@ -3,6 +3,12 @@ Personal project for temperature measurement and visualization using Raspberry P
 
 ## Launch
 
+For data acquisition and graph generation processes:
+
+```
+python background_processing.py
+```
+
 For web server:
 
 ```
