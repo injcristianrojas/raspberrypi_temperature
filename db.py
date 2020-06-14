@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from dateutil import tz
 
-engine = create_engine('sqlite:///temp.sqlite', echo=True)
+engine = create_engine('sqlite:///temp.sqlite', echo=False)
 Base = declarative_base()
 
 class Temperature(Base):
@@ -28,6 +28,7 @@ def insert_temperature(sensor=0, temperature=0.0):
     session = sessionmaker(bind=engine)()
     temp = Temperature(sensor, temperature)
     session.add(temp)
+    print('Inserting data: {}°C for sensor {} at {}'.format(temperature, sensor, datetime.now()))
     session.commit()
     session.close()
 

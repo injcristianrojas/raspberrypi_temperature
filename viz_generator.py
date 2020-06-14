@@ -14,13 +14,10 @@ from io import StringIO
 
 from db import get_last_24hours_csv
 
-TIME_BETWEEN_GENERATION_SECONDS = 600
-
 def generate_image():
     temps = pd.read_csv(StringIO(get_last_24hours_csv()))
     temps['time'] = temps['time'].apply(lambda t: datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f'))
     temps['local_time'] = temps['time'].apply(lambda t: t.replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()))
-    print(temps.tail)
 
     back24hours = datetime.now() - timedelta(days = 1)
     inside_last24hours = temps.loc[(temps['sensor'] == 0) & (temps['time'] > back24hours)]
@@ -31,11 +28,12 @@ def generate_image():
     sns.lineplot(x='local_time', y='temperature', data=outside_last24hours, ax=ax)
     ax.set_ylim(0,40)
     ax.tick_params(labelrotation=45)
-    ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%I')))
+    ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%M')))
     ax.legend(labels=['Internal', 'External'])
 
     plt.tight_layout()
     f.savefig('static/latest.png')
+    print('Graph generated at {}'.format(datetime.now()))
 
 if __name__ == "__main__":
     generate_image()
