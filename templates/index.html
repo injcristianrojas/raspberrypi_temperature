@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Current temperatures</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+  
+  <table class="center">
+    <th colspan="2" id="tmp"><div class="title">Current Temperatures<br />&nbsp;</div></th>
+    <tbody>
+      <tr>
+        <td><div class="subtitle">Inside</div></td>
+        <td><div class="subtitle">Outside</div></td>
+      </tr>
+      <tr>
+        <td><div class="temp">{{ temp0 }}°C</div></td>
+        <td><div class="temp">{{ temp1 }}°C</div></td>
+      </tr>
+      <tr>
+        <td colspan="2"><div class="last">&nbsp;<br />Latest measurement: {{ latest }}</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>&nbsp;</p>
+
+  <img src="{{ url_for('static', filename='latest.png') }}" alt="Temperatures for last 24 hours">
+
+  <script language="javascript">
+    setInterval(function () {
+      window.location.reload(1);
+    }, 60000);
+  </script>
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>

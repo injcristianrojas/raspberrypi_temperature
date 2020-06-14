@@ -1,0 +1,5 @@
+flask
+SQLAlchemy
+python-dateutil
+pandas
+seaborn
