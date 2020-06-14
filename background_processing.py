@@ -21,12 +21,12 @@ TIME_BETWEEN_VIZ_GENERATION = 600
 def measure():
     while True:
         generate_image()
-        time.sleep(TIME_BETWEEN_MEASUREMENTS)
+        time.sleep(TIME_BETWEEN_VIZ_GENERATION)
 
 def generate_visualization():
     while True:
         measure_and_insert()
-        time.sleep(TIME_BETWEEN_VIZ_GENERATION)
+        time.sleep(TIME_BETWEEN_MEASUREMENTS)
 
 if __name__ == "__main__":
     thr_measurement = threading.Thread(target=measure, daemon=True)
