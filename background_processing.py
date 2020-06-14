@@ -4,8 +4,12 @@ import sys
 import time
 import threading
 
+dev_mode = False
+if len(sys.argv) > 1:
+    dev_mode = sys.argv[1] == '--development'
+
 from viz_generator import generate_image
-if sys.argv[1] == '--development':
+if dev_mode is True:
     from get_temp_data_mock import measure_and_insert
 else:
     from get_temp_data import measure_and_insert
