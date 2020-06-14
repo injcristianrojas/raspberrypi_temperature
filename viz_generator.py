@@ -33,6 +33,7 @@ def generate_image():
 
     plt.tight_layout()
     f.savefig('static/latest.png')
+    plt.clf()
     print('Graph generated at {}'.format(datetime.now()))
 
 if __name__ == "__main__":
