@@ -6,7 +6,8 @@
   <meta charset="utf-8">
   <title>Current temperatures</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/process.js') }}"></script>
 </head>
 
 <body>
@@ -30,28 +31,8 @@
 
   <p>&nbsp;</p>
 
-  <img src="{{ url_for('static', filename='latest.png') }}" alt="Temperatures for last 24 hours">
+  <img src="{{ url_for('static', filename='latest.png') }}" alt="Temperatures for last 24 hours" />
 
-  <script language="javascript">
-    $(document).ready(function() {
-      
-      loadAndSetData();
-      setInterval(loadAndSetData, 60000);
-
-      function loadAndSetData() {
-        $.getJSON("/api/v1/latest/", function(data){
-          setValues(data["inside"], data["outside"], data["latest_formatted"]);
-        });
-      }
-
-      function setValues(inside, outside, latest) {
-        $("#temp_inside").text(inside.toFixed(1));
-        $("#temp_outside").text(outside.toFixed(1));
-        $("#latest").text(latest);
-      }
-
-    });
-  </script>
 </body>
 
 </html>
