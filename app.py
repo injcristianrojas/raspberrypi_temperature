@@ -10,6 +10,13 @@ from db import get_latest_temperatures, get_last_24hours_csv
 
 app = Flask(__name__)
 
+@app.after_request
+def set_headers(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Expires'] = '0'
+    response.headers['Pragma'] = 'no-cache'
+    return response
+
 @app.route('/')
 def hello():
     latest = get_latest_temperatures()
