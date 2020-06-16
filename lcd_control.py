@@ -9,8 +9,8 @@ def get_strings(internal_temp, external_temp):
     now_utc = datetime.utcnow().strftime('%H:%M')
     return [
         'SCL {} UTC {}'.format(now_cl, now_utc)[:20],
-        'Inside temp: {0:0.1f}{}C'.format(internal_temp,chr(176))[:20],
-        'Outside temp: {0:0.1f}{}°C'.format(external_temp,chr(176))[:20],
+        'Inside temp: {0:0.1f} C'.format(internal_temp)[:20],
+        'Outside temp: {0:0.1f} C'.format(external_temp)[:20],
     ]
 
 def show_data_mock(internal_temp, external_temp):
