@@ -23,4 +23,4 @@ def show_data(internal_temp, external_temp):
     lcd.clear()
     strings = get_strings(internal_temp, external_temp)
     for i in range(0, len(strings[:4])):
-        lcd.display(strings[i], i+1)
+        lcd.set(strings[i], i+1)
