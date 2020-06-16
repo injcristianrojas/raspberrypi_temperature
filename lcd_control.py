@@ -20,7 +20,7 @@ def show_data_mock(internal_temp, external_temp):
 
 def show_data(internal_temp, external_temp):
     lcd = Lcd()
-    lcd.backlight(0)
     strings = get_strings(internal_temp, external_temp)
     for i in range(0, len(strings[:4])):
         lcd.lcd_display_string(strings[i], i+1)
+    lcd.backlight(0)
