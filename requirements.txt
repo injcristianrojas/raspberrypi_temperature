@@ -3,3 +3,4 @@ SQLAlchemy
 python-dateutil
 pandas
 seaborn
+RPi-GPIO-I2C-LCD
