@@ -7,6 +7,7 @@ import random
 
 from datetime import datetime
 from db import insert_temperature
+from lcd_control import show_data_mock
 
 TIME_BETWEEN_MEASUREMENTS_SECONDS = 60
 DEVICE0_FILE = 0
@@ -20,6 +21,7 @@ def measure_and_insert():
     insert_temperature(0, temp0)
     temp1 = read_temp(DEVICE1_FILE)
     insert_temperature(1, temp1)
+    show_data_mock(temp0, temp1)
 
 if __name__ == "__main__":
     while True:

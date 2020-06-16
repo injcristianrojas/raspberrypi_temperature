@@ -5,6 +5,7 @@ import glob
 import time
 from datetime import datetime
 from db import insert_temperature
+from lcd_control import show_data
 
 os.system('/sbin/modprobe w1-gpio')
 os.system('/sbin/modprobe w1-therm')
@@ -35,6 +36,7 @@ def measure_and_insert():
     insert_temperature(0, temp0)
     temp1 = read_temp(DEVICE1_FILE)
     insert_temperature(1, temp1)
+    show_data(temp0, temp1)
 
 if __name__ == "__main__":
     while True:
