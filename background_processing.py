@@ -18,12 +18,12 @@ else:
 TIME_BETWEEN_MEASUREMENTS = 60
 TIME_BETWEEN_VIZ_GENERATION = 600
 
-def measure():
+def generate_visualization():
     while True:
         generate_image()
         time.sleep(TIME_BETWEEN_VIZ_GENERATION)
 
-def generate_visualization():
+def measure():
     while True:
         measure_and_insert()
         time.sleep(TIME_BETWEEN_MEASUREMENTS)
