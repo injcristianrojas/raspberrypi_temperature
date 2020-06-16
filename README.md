@@ -14,3 +14,5 @@ For web server:
 ```
 sudo FLASK_APP=app.py flask run --host=0.0.0.0 --port=80
 ```
+
+Includes code done by [Bradley Gillap](https://github.com/bradgillap/I2C-LCD-Display), used under Apache License.

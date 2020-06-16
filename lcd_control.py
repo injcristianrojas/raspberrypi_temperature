@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from RPi_GPIO_i2c_LCD import lcd as l
+from lcd.lcddriver import Lcd
 
 from datetime import datetime
 
@@ -19,7 +19,7 @@ def show_data_mock(internal_temp, external_temp):
         print(strings[i])
 
 def show_data(internal_temp, external_temp):
-    lcd = l.HD44780(0x27)
+    lcd = Lcd()
     strings = get_strings(internal_temp, external_temp)
     for i in range(0, len(strings[:4])):
-        lcd.set(strings[i], i+1)
+        lcd.lcd_display_string(strings[i], i+1)
