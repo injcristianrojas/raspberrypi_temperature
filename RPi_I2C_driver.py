@@ -120,7 +120,7 @@ class Lcd:
    def lcd_strobe(self, data):
       self.lcd_device.write_cmd(data | En)
       sleep(.0005)
-      self.lcd_device.write_cmd(((data & ~En)))
+      self.lcd_device.write_cmd(data & ~En)
       sleep(.0001)
 
    def lcd_write_four_bits(self, data):
