@@ -3,16 +3,9 @@
 import sys
 import time
 import threading
-
-dev_mode = False
-if len(sys.argv) > 1:
-    dev_mode = sys.argv[1] == '--development'
-
+from lcd_control import LCDControl
 from viz_generator import generate_image
-if dev_mode is True:
-    from get_temp_data_mock import measure_and_insert
-else:
-    from get_temp_data import measure_and_insert
+from get_temp_data import measure_and_insert
 
 # Times for operations in seconds
 TIME_BETWEEN_MEASUREMENTS = 60
@@ -24,8 +17,12 @@ def generate_visualization():
         time.sleep(TIME_BETWEEN_VIZ_GENERATION)
 
 def measure():
+    int_temp, ext_temp = measure_and_insert()
+    lcd = LCDControl(int_temp, ext_temp)
+    time.sleep(TIME_BETWEEN_MEASUREMENTS)
     while True:
-        measure_and_insert()
+        int_temp, ext_temp = measure_and_insert()
+        lcd.set_current_data(int_temp, ext_temp)
         time.sleep(TIME_BETWEEN_MEASUREMENTS)
 
 if __name__ == "__main__":
