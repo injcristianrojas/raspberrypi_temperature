@@ -32,6 +32,7 @@ def set_individual_data(internal_temp, external_temp):
     # Temps
     # lcd.lcd_display_string_pos('27.1', 2, 13)
     # lcd.lcd_display_string_pos('27.1', 3, 14)
+    #
     # lcd.lcd_write(0xD1)
     # lcd.lcd_write(0xA6)
     # lcd.lcd_write_char(0xDF)
