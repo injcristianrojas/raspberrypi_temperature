@@ -25,7 +25,7 @@ def generate_image():
     f, ax = plt.subplots()
     sns.lineplot(x='time', y='temperature', data=inside_last24hours, ax=ax)
     sns.lineplot(x='time', y='temperature', data=outside_last24hours, ax=ax)
-    ax.set_ylim(0,40)
+    ax.set_ylim(0,35)
     ax.tick_params(labelrotation=45)
     ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%M')))
     ax.legend(labels=['Internal', 'External'])
