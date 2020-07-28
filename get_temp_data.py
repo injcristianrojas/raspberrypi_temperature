@@ -32,9 +32,9 @@ def read_temp(device_file):
 
 def measure_and_insert():
     temp0 = read_temp(DEVICE0_FILE)
-    insert_temperature(0, temp0)
+    insert_temperature(sensor=0, temperature=temp0)
     temp1 = read_temp(DEVICE1_FILE)
-    insert_temperature(1, temp1)
+    insert_temperature(sensor=1, temperature=temp1, seconds_to_wait=10)
     return (temp0, temp1)
 
 if __name__ == "__main__":

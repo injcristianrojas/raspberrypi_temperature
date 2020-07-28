@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import time
+
 from sqlalchemy import create_engine
 from sqlalchemy import Column, DateTime, Integer, Float
 from sqlalchemy.orm import sessionmaker
@@ -24,11 +26,13 @@ class Temperature(Base):
 def create_db():
     Base.metadata.create_all(engine)
 
-def insert_temperature(sensor=0, temperature=0.0):
+def insert_temperature(sensor=0, temperature=0.0, seconds_to_wait=0):
     session = sessionmaker(bind=engine)()
     temp = Temperature(sensor, temperature)
+    measurement_time = datetime.now()
+    time.sleep(seconds_to_wait)
     session.add(temp)
-    print('Inserting data: {}°C for sensor {} at {}'.format(temperature, sensor, datetime.now()))
+    print('Inserting data: {}°C for sensor {} at {}'.format(temperature, sensor, measurement_time))
     session.commit()
     session.close()
 
