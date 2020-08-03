@@ -22,7 +22,7 @@ def generate_image():
     inside_last24hours = temps.loc[(temps['sensor'] == 0) & (temps['time'] > back24hours)]
     outside_last24hours = temps.loc[(temps['sensor'] == 1) & (temps['time'] > back24hours)]
 
-    f, ax = plt.subplots()
+    f, ax = plt.subplots(figsize=(8,5))
     sns.lineplot(x='time', y='temperature', data=inside_last24hours, ax=ax)
     sns.lineplot(x='time', y='temperature', data=outside_last24hours, ax=ax)
     ax.set_ylim(0,35)
