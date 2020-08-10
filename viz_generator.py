@@ -17,16 +17,23 @@ from db import get_last_24hours_csv
 
 def generate_image():
     temps = pd.read_csv(StringIO(get_last_24hours_csv()))
-    temps['time'] = temps['time'].apply(lambda t: datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=pytz.UTC).astimezone(tz.tzlocal()))
+    temps['time'] = temps['time'].apply(lambda t: datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=pytz.UTC).astimezone(tz.tzlocal()).replace(second=0,microsecond=0))
     temps['time'] = pd.to_datetime(temps['time'])
 
     back24hours = (datetime.now() - timedelta(days = 1)).replace(tzinfo=tz.gettz())
     inside_last24hours = temps.loc[(temps['sensor'] == 0) & (temps['time'] > back24hours)]
     outside_last24hours = temps.loc[(temps['sensor'] == 1) & (temps['time'] > back24hours)]
 
+    full = pd.merge(inside_last24hours, outside_last24hours, on='time', how='inner')
+    full = full.drop(['sensor_x', 'sensor_y'], 1)
+    full.columns = ['time', 'inside_temps', 'outside_temps']
+    full = full.set_index(pd.DatetimeIndex(full['time']))
+    print(full.dtypes)
+    full = full.resample('5Min').agg('mean')
+    print(full.tail(30))
+
     f, ax = plt.subplots(figsize=(8,5))
-    sns.lineplot(x='time', y='temperature', data=inside_last24hours, ax=ax)
-    sns.lineplot(x='time', y='temperature', data=outside_last24hours, ax=ax)
+    sns.lineplot(data=full, ax=ax, dashes=False)
     ax.set_ylim(0,35)
     ax.tick_params(labelrotation=45)
     ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%M')))
