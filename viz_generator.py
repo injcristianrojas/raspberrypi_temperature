@@ -27,10 +27,8 @@ def generate_image():
     full = pd.merge(inside_last24hours, outside_last24hours, on='time', how='inner')
     full = full.drop(['sensor_x', 'sensor_y'], 1)
     full.columns = ['time', 'inside_temps', 'outside_temps']
-    full = full.set_index(pd.DatetimeIndex(full['time']))
-    print(full.dtypes)
+    full = full.set_index(pd.DatetimeIndex(data=full['time'], tz=tz.tzlocal()))
     full = full.resample('5Min').agg('mean')
-    print(full.tail(30))
 
     f, ax = plt.subplots(figsize=(8,5))
     sns.lineplot(data=full, ax=ax, dashes=False)
@@ -38,7 +36,7 @@ def generate_image():
     ax.tick_params(labelrotation=45)
     ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%M')))
     ax.legend(labels=['Internal', 'External'])
-    dateformatter = DateFormatter('%H:%M')
+    dateformatter = DateFormatter('%H:%M', tz=full.index.tz)
     dateformatter.set_tzinfo(tz.tzlocal())
     ax.xaxis.set_major_formatter(dateformatter)
 
