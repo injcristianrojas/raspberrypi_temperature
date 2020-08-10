@@ -23,8 +23,9 @@ def measure():
     while True:
         if int(time.strftime('%S')) % 60 == 0:
             lcd.set_time_data()
+            feels_like = get_owmapi_data()
             int_temp, ext_temp = measure_and_insert()
-            lcd.set_current_data(int_temp, ext_temp)
+            lcd.set_current_data(int_temp, ext_temp, feels_like)
         time.sleep(1)
 
 if __name__ == "__main__":

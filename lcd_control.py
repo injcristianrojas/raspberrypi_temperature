@@ -23,6 +23,8 @@ class LCDControl:
         self.lcd.lcd_write_char(0xDF)
         self.lcd.lcd_write(0xA6)
         self.lcd.lcd_write_char(0xDF)
+        self.lcd.lcd_write(0xE4)
+        self.lcd.lcd_write_char(0xDF)
 
     def set_time_data(self):
         now_cl = datetime.now().strftime('%H:%M')
@@ -30,6 +32,7 @@ class LCDControl:
         self.lcd.lcd_display_string_pos(now_cl, 1, 4)
         self.lcd.lcd_display_string_pos(now_utc, 1, 14)
     
-    def set_current_data(self, internal_temp, external_temp):
+    def set_current_data(self, internal_temp, external_temp, owmapi_feels_like):
         self.lcd.lcd_display_string_pos(f'{internal_temp:4.1f}', 2, 13)
         self.lcd.lcd_display_string_pos(f'{external_temp:4.1f}', 3, 14)
+        self.lcd.lcd_display_string_pos(f'{owmapi_feels_like:4.1f}', 4, 12)
