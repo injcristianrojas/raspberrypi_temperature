@@ -37,7 +37,3 @@ def measure_and_insert():
     insert_temperature(sensor=1, temperature=temp1, seconds_to_wait=10)
     return (temp0, temp1)
 
-if __name__ == "__main__":
-    while True:
-        measure_and_insert()
-        time.sleep(TIME_BETWEEN_MEASUREMENTS_SECONDS)
