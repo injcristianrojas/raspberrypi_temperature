@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import time
+import pytz
 
 import pandas as pd
 import seaborn as sns
@@ -16,7 +17,8 @@ from db import get_last_24hours_csv
 
 def generate_image():
     temps = pd.read_csv(StringIO(get_last_24hours_csv()))
-    temps['time'] = temps['time'].apply(lambda t: datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()))
+    temps['time'] = temps['time'].apply(lambda t: datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=pytz.UTC).astimezone(tz.tzlocal()))
+    temps['time'] = pd.to_datetime(temps['time'])
 
     back24hours = (datetime.now() - timedelta(days = 1)).replace(tzinfo=tz.gettz())
     inside_last24hours = temps.loc[(temps['sensor'] == 0) & (temps['time'] > back24hours)]
