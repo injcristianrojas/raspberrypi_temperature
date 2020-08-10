@@ -19,11 +19,12 @@ def generate_visualization():
 def measure():
     int_temp, ext_temp = measure_and_insert()
     lcd = LCDControl(int_temp, ext_temp)
-    time.sleep(TIME_BETWEEN_MEASUREMENTS)
     while True:
-        int_temp, ext_temp = measure_and_insert()
-        lcd.set_current_data(int_temp, ext_temp)
-        time.sleep(TIME_BETWEEN_MEASUREMENTS)
+        if int(time.strftime('%S')) % 60 == 0:
+            lcd.set_time_data()
+            int_temp, ext_temp = measure_and_insert()
+            lcd.set_current_data(int_temp, ext_temp)
+        time.sleep(1)
 
 if __name__ == "__main__":
     thr_measurement = threading.Thread(target=measure, daemon=True)
