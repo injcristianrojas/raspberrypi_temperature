@@ -9,7 +9,6 @@ from get_temp_data import measure_and_insert
 from owmapi import get_owmapi_data
 
 # Times for operations in seconds
-TIME_BETWEEN_MEASUREMENTS = 60
 TIME_BETWEEN_VIZ_GENERATION = 600
 
 def generate_visualization():
