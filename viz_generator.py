@@ -26,7 +26,7 @@ def generate_image():
     ax.set_ylim(0,35)
     ax.tick_params(labelrotation=45)
     ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%M')))
-    ax.legend(labels=['Internal', 'External'])
+    ax.legend(labels=['Internal', 'External', 'OWM Temp', 'OWM Feels like'])
     dateformatter = DateFormatter('%H:%M', tz=tz.tzlocal())
     ax.xaxis.set_major_formatter(dateformatter)
 
