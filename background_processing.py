@@ -5,7 +5,7 @@ import time
 import threading
 from lcd_control import LCDControl
 from viz_generator import generate_image
-from temp_sensor_handler import measure_and_insert
+from temp_sensor_handler import measure_insert_getdata
 from owmapi import get_owmapi_data
 
 # Times for operations in seconds
@@ -17,12 +17,12 @@ def generate_visualization():
         time.sleep(TIME_BETWEEN_VIZ_GENERATION)
 
 def measure():
-    int_temp, ext_temp, feels_like = measure_and_insert()
+    int_temp, ext_temp, feels_like = measure_insert_getdata()
     lcd = LCDControl(int_temp, ext_temp, feels_like)
     while True:
         if int(time.strftime('%S')) % 60 == 0:
             lcd.set_time_data()
-            int_temp, ext_temp, feels_temp = measure_and_insert()
+            int_temp, ext_temp, feels_temp = measure_insert_getdata()
             lcd.set_current_data(int_temp, ext_temp, feels_like)
         time.sleep(1)
 
