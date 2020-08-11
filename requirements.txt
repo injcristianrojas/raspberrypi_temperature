@@ -3,6 +3,7 @@ SQLAlchemy
 python-dateutil
 pandas
 seaborn
+scipy==1.4.1
 RPi-GPIO-I2C-LCD
 pyre-check
 python-dotenv

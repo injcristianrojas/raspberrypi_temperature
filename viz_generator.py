@@ -37,7 +37,6 @@ def generate_image():
     ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%M')))
     ax.legend(labels=['Internal', 'External'])
     dateformatter = DateFormatter('%H:%M', tz=full.index.tz)
-    dateformatter.set_tzinfo(tz.tzlocal())
     ax.xaxis.set_major_formatter(dateformatter)
 
     plt.tight_layout()
