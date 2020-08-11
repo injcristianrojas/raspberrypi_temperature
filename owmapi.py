@@ -18,7 +18,7 @@ def get_owmapi_data():
     data = r.json()
     feels_like = dekelvinize(data['main']['feels_like'])
     temp = dekelvinize(data['main']['temp'])
-    condition = data['weather']['description']
+    condition = data['weather'][0]['description']
     return temp, feels_like, condition
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ def insert_temperatures(temp_internal=None, temp_external=None, temp_owm=None, t
     temps = Temperatures(temp_internal, temp_external, temp_owm, temp_owm_feels, condition)
     measurement_time = datetime.now()
     session.add(temps)
-    print('Inserting data: {}/{}°C home, {}/{}°C, {} OWM at {}'.format(temp_internal, temp_external, temp_owm, temp_owm_feels, condition, measurement_time))
+    print('Inserting data: {}/{}°C home, {:.2f}/{:.2f}°C, {} OWM at {}'.format(temp_internal, temp_external, temp_owm, temp_owm_feels, condition, measurement_time))
     session.commit()
     session.close()
 
