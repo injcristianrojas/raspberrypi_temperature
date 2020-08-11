@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import time
-import sys
 
 import pandas as pd
 import seaborn as sns
@@ -20,6 +19,7 @@ def generate_image():
     temps['time'] = temps['time'].apply(lambda t: datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()))
     temps['time'] = pd.to_datetime(temps['time'])
     temps = temps.set_index('time')
+    temps = temps.drop('condition', axis=1)
 
     f, ax = plt.subplots(figsize=(8,5))
     sns.lineplot(data=temps, ax=ax, dashes=False)

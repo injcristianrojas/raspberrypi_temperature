@@ -17,7 +17,8 @@ def get_owmapi_data():
     r = requests.get(url)
     data = r.json()
     feels_like = dekelvinize(data['main']['feels_like'])
-    return feels_like
+    temp = dekelvinize(data['main']['temp'])
+    return temp, feels_like
 
 if __name__ == "__main__":
     print(get_owmapi_data())

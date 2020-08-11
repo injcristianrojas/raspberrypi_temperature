@@ -48,7 +48,7 @@ def get_latest_temperatures():
     return(q.time.replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()), q.temp_internal, q.temp_external, q.temp_owm, q.temp_owm_feels, q.condition)
 
 def get_last_24hours_data():
-    data = [['time', 'temp_internal', 'temp_external', 'temp_owm_feels']]
+    data = [['time', 'temp_internal', 'temp_external', 'temp_owm', 'temp_owm_feels', 'condition']]
     query = "select * from temperatures where time >= datetime('now', '-1 day')"
     with engine.connect() as conn:
         rs = conn.execute(query)
