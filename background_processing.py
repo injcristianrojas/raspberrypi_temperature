@@ -5,7 +5,7 @@ import time
 import threading
 from lcd_control import LCDControl
 from viz_generator import generate_image
-from get_temp_data import measure_and_insert
+from temp_sensor_handler import measure_and_insert
 from owmapi import get_owmapi_data
 
 # Times for operations in seconds

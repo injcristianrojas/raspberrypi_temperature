@@ -5,6 +5,7 @@ import glob
 import time
 from datetime import datetime
 from db import insert_temperature
+from db_v2 import insert_temperatures
 
 os.system('/sbin/modprobe w1-gpio')
 os.system('/sbin/modprobe w1-therm')
@@ -32,8 +33,9 @@ def read_temp(device_file):
 
 def measure_and_insert():
     temp0 = read_temp(DEVICE0_FILE)
-    insert_temperature(sensor=0, temperature=temp0)
     temp1 = read_temp(DEVICE1_FILE)
+    insert_temperatures(temp_internal=temp0, temp_external=temp1)
+    insert_temperature(sensor=0, temperature=temp0)
     insert_temperature(sensor=1, temperature=temp1, seconds_to_wait=5)
     return (temp0, temp1)
 
