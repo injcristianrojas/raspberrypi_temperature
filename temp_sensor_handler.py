@@ -35,8 +35,8 @@ def read_temp(device_file):
 def measure_and_insert():
     temp0 = read_temp(DEVICE0_FILE)
     temp1 = read_temp(DEVICE1_FILE)
-    temp, temp_feels = get_owmapi_data()
-    insert_temperatures(temp_internal=temp0, temp_external=temp1, temp_owm=temp, temp_owm_feels=temp_feels)
+    temp, temp_feels, condition = get_owmapi_data()
+    insert_temperatures(temp_internal=temp0, temp_external=temp1, temp_owm=temp, temp_owm_feels=temp_feels, condition=condition)
     insert_temperature(sensor=0, temperature=temp0)
     insert_temperature(sensor=1, temperature=temp1, seconds_to_wait=5)
     return (temp0, temp1, temp_feels)
