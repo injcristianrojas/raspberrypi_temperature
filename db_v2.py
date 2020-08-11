@@ -18,20 +18,22 @@ class Temperatures(Base):
     time = Column(DateTime, primary_key=True, default=datetime.utcnow)
     temp_internal = Column(Float)
     temp_external = Column(Float)
+    temp_owm_feels = Column(Float)
     
-    def __init__(self, temp_internal, temp_external):
+    def __init__(self, temp_internal, temp_external, temp_owm_feels):
         self.temp_internal = temp_internal
         self.temp_external = temp_external
+        self.temp_owm_feels = temp_owm_feels
 
 def create_db():
     Base.metadata.create_all(engine)
 
-def insert_temperatures(temp_internal=None, temp_external=None):
+def insert_temperatures(temp_internal=None, temp_external=None, temp_owm_feels=None):
     session = sessionmaker(bind=engine)()
-    temps = Temperatures(temp_internal, temp_external)
+    temps = Temperatures(temp_internal, temp_external, temp_owm_feels)
     measurement_time = datetime.now()
     session.add(temps)
-    print('Inserting data: {}/{}°C at {}'.format(temp_internal, temp_external, measurement_time))
+    print('Inserting data: {}/{}°C, {}°C at {}'.format(temp_internal, temp_external, temp_owm_feels, measurement_time))
     session.commit()
     session.close()
 
@@ -39,22 +41,22 @@ def get_latest_temperatures():
     session = sessionmaker(bind=engine)()
     q = session.query(Temperatures).order_by(Temperatures.time.desc()).first()
     session.close()
-    return(q.time.replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()), q.temp_internal, q.temp_external)
+    return(q.time.replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()), q.temp_internal, q.temp_external, q.temp_owm_feels)
 
 def get_last_24hours_data():
-    data = [['time', 'temp_internal', 'temp_external']]
+    data = [['time', 'temp_internal', 'temp_external', 'temp_owm_feels']]
     query = "select * from temperatures where time >= datetime('now', '-1 day')"
     with engine.connect() as conn:
         rs = conn.execute(query)
         for row in rs:
-            data.append([row[0], row[1], row[2]])
+            data.append([row[0], row[1], row[2], row[3]])
     return data
 
 def get_last_24hours_csv():
     data = get_last_24hours_data()
     csv_string = ''
     for row in data:
-        csv_string += '"{}",{},{}\n'.format(row[0], row[1], row[2])
+        csv_string += '"{}",{},{},{}\n'.format(row[0], row[1], row[2], row[3])
     return csv_string
 
 if __name__ == "__main__":
