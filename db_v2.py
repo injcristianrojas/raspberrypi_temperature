@@ -20,7 +20,7 @@ class Temperatures(Base):
     temp_external = Column(Float)
     temp_owm = Column(Float)
     temp_owm_feels = Column(Float)
-    condition = Column(String)
+    condition = Column(String, default='None')
     
     def __init__(self, temp_internal, temp_external, temp_owm, temp_owm_feels, condition):
         self.temp_internal = temp_internal
