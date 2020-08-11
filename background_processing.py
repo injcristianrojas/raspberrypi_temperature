@@ -17,12 +17,12 @@ def generate_visualization():
         time.sleep(TIME_BETWEEN_VIZ_GENERATION)
 
 def measure():
-    int_temp, ext_temp, feels_like, condition = measure_and_insert()
+    int_temp, ext_temp, feels_like = measure_and_insert()
     lcd = LCDControl(int_temp, ext_temp, feels_like)
     while True:
         if int(time.strftime('%S')) % 60 == 0:
             lcd.set_time_data()
-            int_temp, ext_temp, feels_temp, condition = measure_and_insert()
+            int_temp, ext_temp, feels_temp = measure_and_insert()
             lcd.set_current_data(int_temp, ext_temp, feels_like)
         time.sleep(1)
 
