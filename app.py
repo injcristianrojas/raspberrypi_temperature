@@ -6,7 +6,7 @@ from datetime import datetime
 
 import csv
 
-from db import get_latest_temperatures, get_last_24hours_csv
+from db_v2 import get_latest_temperatures, get_last_24hours_csv
 
 app = Flask(__name__)
 
