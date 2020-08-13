@@ -9,7 +9,7 @@ Feels like: 10.4°C
 New
 |------------------|
 SCL 18:24 UTC 22:24
-In/Out  27.2/31.7°C
-T/Feel  12.2/15.9°C
+In/Out: 27.2/31.7°C
+T/Feel: 12.2/15.9°C
 scattered clouds
 |------------------|
