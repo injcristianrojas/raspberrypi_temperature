@@ -16,8 +16,8 @@ class LCDControl:
         now_cl = datetime.now().strftime('%H:%M')
         now_utc = datetime.utcnow().strftime('%H:%M')
         self.lcd.lcd_display_string('SCL {}  UTC {}'.format(now_cl, now_utc)[:20], 1)
-        self.lcd.lcd_display_string('In/out: {}/{} C'.format(f'{internal_temp:4.1f}', f'{external_temp:4.1f}')[:20], 2)
-        self.lcd.lcd_display_string('T/Feel: {}/{} C'.format(f'{owmapi_temp:4.1f}', f'{owmapi_feels_like:4.1f}')[:20], 3)
+        self.lcd.lcd_display_string('In/out:  {}/{} C'.format(f'{internal_temp:4.1f}', f'{external_temp:4.1f}')[:20], 2)
+        self.lcd.lcd_display_string('T/Feel:  {}/{} C'.format(f'{owmapi_temp:4.1f}', f'{owmapi_feels_like:4.1f}')[:20], 3)
         self.lcd.lcd_display_string('Wt: {}'.format(condition.capitalize())[:20], 4)
         #self.lcd.lcd_write(0xD1)
         #self.lcd.lcd_write_char(0xDF)
@@ -33,8 +33,8 @@ class LCDControl:
         self.lcd.lcd_display_string_pos(now_utc, 1, 15)
     
     def set_current_data(self, internal_temp, external_temp, owmapi_temp, owmapi_feels_like, condition):
-        self.lcd.lcd_display_string_pos(f'{internal_temp:4.1f}', 2, 8)
-        self.lcd.lcd_display_string_pos(f'{external_temp:4.1f}', 2, 13)
-        self.lcd.lcd_display_string_pos(f'{owmapi_temp:4.1f}', 3, 8)
-        self.lcd.lcd_display_string_pos(f'{owmapi_feels_like:4.1f}', 3, 13)
+        self.lcd.lcd_display_string_pos(f'{internal_temp:4.1f}', 2, 9)
+        self.lcd.lcd_display_string_pos(f'{external_temp:4.1f}', 2, 14)
+        self.lcd.lcd_display_string_pos(f'{owmapi_temp:4.1f}', 3, 9)
+        self.lcd.lcd_display_string_pos(f'{owmapi_feels_like:4.1f}', 3, 14)
         self.lcd.lcd_display_string_pos(condition.capitalize()[:20], 4, 4)
