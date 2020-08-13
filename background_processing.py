@@ -22,7 +22,7 @@ def measure():
     while True:
         if int(time.strftime('%S')) % 60 == 0:
             lcd.set_time_data()
-            int_temp, ext_temp, feels_temp = measure_insert_getdata()
+            int_temp, ext_temp, owm_temp, owm_feels_like, condition = measure_insert_getdata()
             lcd.set_current_data(int_temp, ext_temp, owm_temp, owm_feels_like, condition)
         time.sleep(1)
 
