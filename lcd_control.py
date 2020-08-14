@@ -35,4 +35,4 @@ class LCDControl:
         self.lcd.lcd_display_string_pos(f'{external_temp:4.1f}', 2, 14)
         self.lcd.lcd_display_string_pos(f'{owmapi_temp:4.1f}', 3, 9)
         self.lcd.lcd_display_string_pos(f'{owmapi_feels_like:4.1f}', 3, 14)
-        self.lcd.lcd_display_string_pos(condition.capitalize()[:20].ljust(20), 4, 3)
+        self.lcd.lcd_display_string_pos(condition.capitalize()[:20].ljust(19), 4, 3)
