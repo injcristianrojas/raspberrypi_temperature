@@ -37,9 +37,9 @@ class LCDControl:
         self.lcd.lcd_display_string_pos(f'{internal_temp:4.1f}', 2, 9)
         self.lcd.lcd_display_string_pos(f'{external_temp:4.1f}', 2, 14)
         if owmapi_temp is None:
-            self.lcd.lcd_display_string_pos(f'{owmapi_temp:4.1f}', 3, 9)
-            self.lcd.lcd_display_string_pos(f'{owmapi_feels_like:4.1f}', 3, 14)
-        else:
             self.lcd.lcd_display_string_pos('----', 3, 9)
             self.lcd.lcd_display_string_pos('----', 3, 14)
+        else:
+            self.lcd.lcd_display_string_pos(f'{owmapi_temp:4.1f}', 3, 9)
+            self.lcd.lcd_display_string_pos(f'{owmapi_feels_like:4.1f}', 3, 14)
         self.lcd.lcd_display_string_pos(condition.capitalize()[:20].ljust(17), 4, 3)
