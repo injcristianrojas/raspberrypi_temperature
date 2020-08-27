@@ -4,7 +4,6 @@ import os
 import glob
 import time
 from datetime import datetime
-from db import insert_temperature
 from db_v2 import insert_temperatures
 from owmapi import get_owmapi_data
 
@@ -37,7 +36,5 @@ def measure_insert_getdata():
     temp1 = read_temp(DEVICE1_FILE)
     temp_owm, temp_feels, condition = get_owmapi_data()
     insert_temperatures(temp_internal=temp0, temp_external=temp1, temp_owm=temp_owm, temp_owm_feels=temp_feels, condition=condition)
-    insert_temperature(sensor=0, temperature=temp0)
-    insert_temperature(sensor=1, temperature=temp1, seconds_to_wait=5)
     return (temp0, temp1, temp_owm, temp_feels, condition)
 
