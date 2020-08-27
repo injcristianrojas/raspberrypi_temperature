@@ -18,9 +18,9 @@ class LCDControl:
         self.lcd.lcd_display_string('SCL {}  UTC {}'.format(now_cl, now_utc)[:20], 1)
         self.lcd.lcd_display_string('In/out:  {}/{} C'.format(f'{internal_temp:4.1f}', f'{external_temp:4.1f}')[:20], 2)
         if owmapi_temp is None:
-            self.lcd.lcd_display_string('T/Feel:  {}/{} C'.format(f'{owmapi_temp:4.1f}', f'{owmapi_feels_like:4.1f}')[:20], 3)
-        else:
             self.lcd.lcd_display_string('T/Feel:  {}/{} C'.format('----', '----')[:20], 3)
+        else:
+            self.lcd.lcd_display_string('T/Feel:  {}/{} C'.format(f'{owmapi_temp:4.1f}', f'{owmapi_feels_like:4.1f}')[:20], 3)
         self.lcd.lcd_display_string('W: {}'.format(condition.capitalize())[:20], 4)
         self.lcd.lcd_write(0xD2)
         self.lcd.lcd_write_char(0xDF)
