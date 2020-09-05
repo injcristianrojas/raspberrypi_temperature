@@ -3,6 +3,8 @@
 import os
 import requests
 from urllib3.exceptions import ProtocolError
+from requests.exceptions import ConnectionError
+from http.client import RemoteDisconnected
 from flask import jsonify
 from dotenv import load_dotenv
 
