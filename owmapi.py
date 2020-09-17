@@ -25,7 +25,7 @@ def get_owmapi_data():
         return temp, feels_like, condition
     except (ConnectionError, ProtocolError) as e:
         print(str(e) + ' ' + str(e.__traceback__))
-        return None, None, 'OWMAPI error'
+        return dekelvinize(0), dekelvinize(0), 'OWMAPI error'
 
 if __name__ == "__main__":
     print(get_owmapi_data())
