@@ -27,15 +27,14 @@ def measure():
             lcd.set_current_data(int_temp, ext_temp, owm_temp, owm_feels_like, condition)
         time.sleep(1)
 
-def main():
-    thr_measurement = threading.Thread(target=measure, daemon=True)
-    thr_visualization = threading.Thread(target=generate_visualization, daemon=True)
-    with PidFile(piddir='.'):
-        thr_measurement.start()
-        thr_measurement.join()
-    with PidFile(piddir='.'):
-        thr_visualization.start()
-        thr_visualization.join()
-
 if __name__ == "__main__":
-    main()
+    with PidFile(piddir='.'):
+        threads = []
+        thr_measurement = threading.Thread(target=measure, daemon=True)
+        thr_visualization = threading.Thread(target=generate_visualization, daemon=True)
+        thr_measurement.start()
+        threads.append(thr_measurement)
+        thr_visualization.start()
+        threads.append(thr_measurement)
+        for t in threads:
+            t.join()
