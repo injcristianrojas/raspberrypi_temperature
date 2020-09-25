@@ -2,9 +2,6 @@
 
 import os
 import requests
-from urllib3.exceptions import ProtocolError
-from requests.exceptions import ConnectionError
-from http.client import RemoteDisconnected
 from flask import jsonify
 from dotenv import load_dotenv
 
@@ -23,7 +20,7 @@ def get_owmapi_data():
         temp = dekelvinize(data['main']['temp'])
         condition = data['weather'][0]['description']
         return temp, feels_like, condition
-    except (ConnectionError, ProtocolError) as e:
+    except Exception as e:
         print(str(e) + ' ' + str(e.__traceback__))
         return dekelvinize(0), dekelvinize(0), 'OWMAPI error'
 
