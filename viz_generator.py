@@ -19,14 +19,14 @@ def generate_image():
     temps['time'] = temps['time'].apply(lambda t: datetime.strptime(t, '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()))
     temps['time'] = pd.to_datetime(temps['time'])
     temps = temps.set_index('time')
-    temps = temps.drop('condition', axis=1)
+    temps = temps.drop('condition', axis=1).drop('temp_owm', axis=1).drop('temp_owm_feels', axis=1)
 
     f, ax = plt.subplots(figsize=(8,5))
     sns.lineplot(data=temps, ax=ax, dashes=False)
     ax.set_ylim(0,35)
     ax.tick_params(labelrotation=45)
     ax.set_title('Temperatures in the last 24 hours (Last updated: {})'.format(datetime.now().strftime('%H:%M')))
-    ax.legend(labels=['Internal', 'External', 'OWM Temp', 'OWM Feels like'])
+    ax.legend(labels=['Internal', 'External'])
     dateformatter = DateFormatter('%H:%M', tz=tz.tzlocal())
     ax.xaxis.set_major_formatter(dateformatter)
 
