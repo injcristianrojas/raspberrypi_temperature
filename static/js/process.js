@@ -7,6 +7,7 @@ $(document).ready(function () {
     function loadAndSetData() {
         $.getJSON("/api/v1/latest/", function (data) {
             setValues(data["inside"], data["outside"], data["latest_formatted"]);
+            setOWMData(data["owm_temp"], data["owm_feels"], data["owm_condition"]);
         });
     }
 
@@ -14,6 +15,15 @@ $(document).ready(function () {
         $("#temp_inside").text(inside.toFixed(1));
         $("#temp_outside").text(outside.toFixed(1));
         $("#latest").text(latest);
+    }
+
+    function setOWMData(temp, feels, condition) {
+        if (parseFloat(temp) < -200.0)
+            $("#owm_info").text("No Data");
+        else {
+            let to_show = "Temp: 20.0°C, feels like 21.5°C, Few clouds";
+            $("#owm_info").text(to_show);
+        }
     }
 
     function reloadVisualization() {
