@@ -21,7 +21,7 @@ $(document).ready(function () {
         if (parseFloat(temp) < -200.0)
             $("#owm_info").text("No Data");
         else {
-            let to_show = "Temp: " + temp.toFixed(1) + "°C, feels like " + feels.toFixed(1) + "°C, " + condition;
+            let to_show = "Current " + temp.toFixed(1) + "°C, feels like " + feels.toFixed(1) + "°C, " + condition;
             $("#owm_info").text(to_show);
         }
     }
