@@ -3,7 +3,8 @@ Description=Temperature web service
 After=network.target
 
 [Service]
-ExecStart=FLASK_APP=app.py /usr/local/bin/flask run --host=0.0.0.0 --port=80
+Environment="FLASK_APP=app.py"
+ExecStart=/usr/local/bin/flask run --host=0.0.0.0 --port=80
 WorkingDirectory=/home/pi/raspberrypi_temperature
 StandardOutput=inherit
 StandardError=inherit
