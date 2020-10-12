@@ -1,3 +1,7 @@
+# Put this in /etc/systemd/system/
+# Then start it using: sudo systemctl start temp_flask.service
+# Then enable it using: sudo systemctl enable temp_flask.service
+
 [Unit]
 Description=Temperature web service
 After=network.target
