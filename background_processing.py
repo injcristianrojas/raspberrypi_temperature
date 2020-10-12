@@ -27,7 +27,7 @@ def measure():
             lcd.set_current_data(int_temp, ext_temp, owm_temp, owm_feels_like, condition)
         time.sleep(1)
 
-if __name__ == "__main__":
+def main_process():
     with PidFile(piddir='.'):
         threads = []
         thr_measurement = threading.Thread(target=measure, daemon=True)
@@ -38,3 +38,6 @@ if __name__ == "__main__":
         threads.append(thr_measurement)
         for t in threads:
             t.join()
+
+if __name__ == "__main__":
+    main_process()
