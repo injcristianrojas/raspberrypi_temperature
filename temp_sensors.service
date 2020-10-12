@@ -1,0 +1,14 @@
+[Unit]
+Description=Temperature sensors data retrieval
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u temp_retrieval_processing.py
+WorkingDirectory=/home/pi/raspberrypi_temperature
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
