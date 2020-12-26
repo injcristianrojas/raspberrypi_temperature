@@ -47,17 +47,22 @@ def get_latest_temperatures():
     session.close()
     return(q.time.replace(tzinfo=tz.tzutc()).astimezone(tz.tzlocal()), q.temp_internal, q.temp_external, q.temp_owm, q.temp_owm_feels, q.condition)
 
-def get_last_24hours_data():
+def get_24hour_data(query):
     data = [['time', 'temp_internal', 'temp_external', 'temp_owm', 'temp_owm_feels', 'condition']]
-    query = "select * from temperatures where time >= datetime('now', '-1 day')"
     with engine.connect() as conn:
         rs = conn.execute(query)
         for row in rs:
             data.append([row[0], row[1], row[2], row[3], row[4], row[5]])
     return data
 
+def get_24hour_data_last24():
+    return get_24hour_data("select * from temperatures where time >= datetime('now', '-1 day')")
+
+def get_24hour_data_from_day(date_string):
+    return get_24hour_data("SELECT * FROM temperatures WHERE time BETWEEN '{} 00:00' AND '{} 23:59'".format(date_string, date_string))
+
 def get_last_24hours_csv():
-    data = get_last_24hours_data()
+    data = get_24hour_data_last24()
     csv_string = ''
     for row in data:
         csv_string += '"{}",{},{},{},{},"{}"\n'.format(row[0], row[1], row[2], row[3], row[4], row[5])
