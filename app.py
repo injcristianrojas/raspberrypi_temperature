@@ -16,9 +16,8 @@ def set_headers(response):
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     response.headers['Expires'] = '0'
     response.headers['Pragma'] = 'no-cache'
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' ajax.googleapis.com;"
+    response.headers['Content-Security-Policy'] = "default-src 'self' ajax.googleapis.com"
     return response
-
 
 @app.route('/')
 def hello():

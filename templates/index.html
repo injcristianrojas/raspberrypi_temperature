@@ -6,7 +6,9 @@
   <meta charset="utf-8">
   <title>Current temperatures</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/process.js') }}"></script>
 </head>
 
@@ -34,9 +36,13 @@
 
   <p class="last">Latest measurement: <span id="latest"></span></p>
 
-  <p>&nbsp;</p>
+  <p>
+    View reports:
+    <input type="input" id="datepicker" class="datepicker" />
+    <button id="currentgraph">Current</button>
+  </p>
 
-  <img id="mgviz" src="/static/latest.png" alt="Temperatures for last 24 hours" />
+  <img id="mgviz" src="/static/graphs/latest.png" alt="Temperatures for last 24 hours" />
 
 </body>
 

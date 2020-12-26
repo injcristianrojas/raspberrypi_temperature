@@ -3,8 +3,9 @@
 import sys
 import time
 import threading
+from datetime import date, timedelta
 from lcd_control import LCDControl
-from viz_generator import generate_image
+from viz_generator import generate_image, generate_image_for_date
 from temp_sensor_handler import measure_insert_getdata
 from owmapi import get_owmapi_data
 from pid import PidFile
@@ -15,7 +16,14 @@ TIME_BETWEEN_VIZ_GENERATION = 600
 def generate_visualization():
     while True:
         generate_image()
+        current_time = time.localtime()
+        if current_time.tm_hour == 0 and current_time.tm_min >= 0 and current_time.tm_min <= 5:
+            create_visualization_for_yesterday()
         time.sleep(TIME_BETWEEN_VIZ_GENERATION)
+
+def create_visualization_for_yesterday():
+    yesterday = date.today() - timedelta(days=1)
+    generate_image_for_date(yesterday.strftime('%Y%m%d'))
 
 def measure():
     int_temp, ext_temp, owm_temp, owm_feels_like, condition = measure_insert_getdata()

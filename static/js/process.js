@@ -1,8 +1,27 @@
 $(document).ready(function () {
 
+    const MEASUREMENT_START_DATE = new Date(2020,7,12);
+
+    startUI();
     loadAndSetData();
     setInterval(loadAndSetData, 60000);
-    setInterval(reloadVisualization, 300000);
+    setInterval(setCurrentVisualization, 300000);
+
+    function startUI() {
+        $("#datepicker").datepicker({
+            showOn: "button",
+            buttonText: "Select date",
+            minDate: MEASUREMENT_START_DATE,
+            maxDate: "-1",
+            dateFormat: "yymmdd",
+            onSelect: function(dateText) {
+                setVisualization(dateText);
+            }
+        });
+        $("#currentgraph").on("click", function() {
+            setCurrentVisualization();
+        });
+    }
 
     function loadAndSetData() {
         $.getJSON("/api/v1/latest/", function (data) {
@@ -26,9 +45,13 @@ $(document).ready(function () {
         }
     }
 
-    function reloadVisualization() {
-        let d = new Date()
-        $("#mgviz").attr("src", "/static/latest.png?" + d.getTime())
+    function setCurrentVisualization() {
+        setVisualization("latest");
+    }
+
+    function setVisualization(date_string) {
+        let d = new Date();
+        $("#mgviz").attr("src", "/static/graphs/" + date_string + ".png?" + d.getTime());
     }
 
 });
