@@ -6,7 +6,7 @@ from datetime import datetime
 
 import csv
 
-from db_v2 import get_latest_temperatures, get_last_24hours_csv
+from db_v2 import get_latest_temperatures, get_last_24hours_csv, get_24hour_data_last24
 
 app = Flask(__name__)
 
@@ -31,12 +31,15 @@ def hello():
     )
 
 
-@app.route('/api/v1/last24hours/csv')
-def last24():
+@app.route('/api/v1/last24h/csv')
+def last24csv():
     resp = make_response(get_last_24hours_csv())
     resp.headers['Content-Type'] = 'text/csv'
     return resp
 
+@app.route('/api/v1/last24h/json')
+def last24json():
+    return jsonify(get_24hour_data_last24())
 
 @app.route('/api/v1/latest/')
 def latest_json():
