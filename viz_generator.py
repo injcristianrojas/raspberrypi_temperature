@@ -10,6 +10,8 @@ from dateutil import tz
 
 from db_v2 import get_24hour_data_last24, get_24hour_data_from_day
 
+GRAPH_LOCATION = "static/graphs/"
+
 def generate_image_last24():
     last_24_list = get_24hour_data_last24()
     df_temps = pd.DataFrame(last_24_list[1:], columns=last_24_list[0])
@@ -28,7 +30,7 @@ def generate_image_last24():
     ax.xaxis.set_major_formatter(dateformatter)
 
     plt.tight_layout()
-    f.savefig('static/graphs/latest.png')
+    f.savefig('{}latest.png'.format(GRAPH_LOCATION))
     plt.clf()
     print('Graph generated at {}'.format(datetime.now()))
 
@@ -60,7 +62,7 @@ def generate_image_for_date(date):
     ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=9, verticalalignment='top', bbox=props)
 
     plt.tight_layout()
-    f.savefig('static/graphs/{}.png'.format(date.replace('-', '')))
+    f.savefig('{}{}.png'.format(GRAPH_LOCATION, date.replace('-', '')))
     plt.close(f)
     print('Graph for {} generated at {}'.format(date, datetime.now()))
 
