@@ -16,9 +16,7 @@ TIME_BETWEEN_VIZ_GENERATION = 600
 def generate_visualization():
     while True:
         generate_image_last24()
-        current_time = time.localtime()
-        if current_time.tm_hour == 0 and current_time.tm_min >= 0 and current_time.tm_min <= 6:
-            create_visualization_for_yesterday()
+        create_visualization_for_yesterday()
         time.sleep(TIME_BETWEEN_VIZ_GENERATION)
 
 def create_visualization_for_yesterday():
