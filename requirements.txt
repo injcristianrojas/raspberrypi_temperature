@@ -8,3 +8,4 @@ RPi-GPIO-I2C-LCD
 pyre-check
 python-dotenv
 pid
+requests

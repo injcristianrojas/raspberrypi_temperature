@@ -59,7 +59,7 @@ def get_24hour_data_last24():
     return get_24hour_data("select * from temperatures where time >= datetime('now', '-1 day')")
 
 def get_24hour_data_from_day(date_string):
-    return get_24hour_data("SELECT * FROM temperatures WHERE time BETWEEN '{} 00:00' AND '{} 23:59'".format(date_string, date_string))
+    return get_24hour_data("SELECT * FROM temperatures WHERE time BETWEEN datetime('{} 00:00:00', 'localtime') AND datetime('{} 23:59:59', 'localtime')".format(date_string, date_string))
 
 def get_last_24hours_csv():
     data = get_24hour_data_last24()
